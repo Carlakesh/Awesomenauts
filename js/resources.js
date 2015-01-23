@@ -4,6 +4,7 @@ game.resources = [
 	 * @example
 	 * {name: "example", type:"image", src: "data/img/example.png"},
 	 */
+	 // loading the pictures for the map
 	  {name: "background-tiles", type:"image", src: "data/img/Background-tiles.png"},
 	  {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
 	  {name: "player", type:"image", src: "data/img/orcSpear.png"},
@@ -17,6 +18,7 @@ game.resources = [
 	 * {name: "example01", type: "tmx", src: "data/map/example01.tmx"},
 	 * {name: "example01", type: "tmx", src: "data/map/example01.json"},
  	 */
+ 	 //loading the map 
  	 {name: "level01", type: "tmx", src: "data/map/map.tmx"},
 
 	/* Background music. 
