@@ -7,6 +7,7 @@ game.resources = [
 	 // loading the pictures for the map
 	  {name: "background-tiles", type:"image", src: "data/img/Background-tiles.png"},
 	  {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
+	  //added the characters pictures.
 	  {name: "player", type:"image", src: "data/img/orcSpear.png"},
 	/* Atlases 
 	 * @example

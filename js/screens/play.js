@@ -7,11 +7,11 @@ game.PlayScreen = me.ScreenObject.extend({
 		game.data.score = 0;
 		//loading level 01 
 		me.levelDirector.loadLevel("level01");
-//420 
+		//adding the player 
 		var player = me.pool.pull("player", 0, 420, {});
-
+		//adding him into the game/ on the screen
 		me.game.world.addChild(player , 5);
-
+		//when clicking right, character moves right
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
 
 		// add our HUD to the game world
