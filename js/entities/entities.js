@@ -22,6 +22,10 @@ game.PlayerEntity = me.Entity.extend({
 		this.body.setVelocity(5, 20);
 		//keeps track of which direction your character is going
 		this.facing = "right";
+
+		this.now = new Date().getTime();
+		this.lastHit = this.now;
+		this.lastAttack = new Date().getTime();
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH)
 		this.renderable.addAnimation("idle" , [78]);
 		this.renderable.addAnimation("walk", [117, 118 , 119 , 120 , 121 , 122 , 123 , 124 , 125], 80);
@@ -30,6 +34,7 @@ game.PlayerEntity = me.Entity.extend({
 	},
 
 	update: function(delta){
+		this.now = new Date().getTime();
 		//checking if the right key is pressed
 		if (me.input.isKeyPressed("right")) {
 			//adds to  the position of my x by the velocity defined above in
@@ -72,28 +77,14 @@ if(me.input.isKeyPressed("attack")){
 
 
 
-		else if(this.body.vel.x !== 0){
+		else if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){
 			if(!this.renderable.isCurrentAnimation("walk")){
 				this.renderable.setCurrentAnimation("walk");
 			}
-		}else{
+		}else if (!this.renderable.isCurrentAnimation("attack")){ 
 			this.renderable.setCurrentAnimation("idle");
 		}
 
-
-if(me.input.isKeyPressed("attack")){
-		
-	if(!this.renderable.isCurrentAnimation("attack")){
-		console.log(!this.renderable.isCurrentAnimation("attack"));
-		//sets the current animation to attack and once that is over
-	//goes back to the idle animation
-	this.renderable.setCurrentAnimation("attack" , "idle");
-	//makes it so that the next time we start this sequence we begin
-	//from the first animation, not wherever we left off when we
-	//switched to another animation
-	this.renderable.setAnimationFrame();
-	}
-}
 
 
 	me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -109,15 +100,24 @@ if(me.input.isKeyPressed("attack")){
 			var ydif = this.pos.y - response.b.pos.y;
 			var xdif = this.pos.x - response.b.pos.x;
 			
-			console.log("xdif " + xdif + " ydif " + ydif);
+		
 
-			if(xdif>-35 && this.facing==='right' && (xdif<0)) {
+if (ydif<-40 && xdif< 70 && xdif>-35){
+this.body.falling = false;
+this.body.vel.y = -1;
+}
+
+			else if(xdif>-35 && this.facing==='right' && (xdif<0 && ydif>-0)) {
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x -1;
 			}else if(xdif<70 && this.facing==='left' && xdif>0) {
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x +1;
 
+			}
+			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit>= 1000){
+				this.lastHit = this.now;
+				response.b.loseHealth();
 			}
 		}
 	}
@@ -195,5 +195,8 @@ game.PlayerBaseEntity = me.Entity.extend({
 	},
 	onCollision: function(){
 
+	},
+	loseHealth: function(){
+		this.health--;
 	}
 });
