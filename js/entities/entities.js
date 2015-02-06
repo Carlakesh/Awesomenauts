@@ -250,7 +250,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 
 	}
 })
-
+//puts the enemy on  a timer
 game.GameManager = Object.extend({
 init: function(x, y, settings){
 this.now = new Date().getTime();
