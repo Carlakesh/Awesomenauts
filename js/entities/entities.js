@@ -246,8 +246,14 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.renderable.addAnimation("walk", [3, 4, 5], 80);
 		this.renderable.setCurrentAnimation("walk");
 	},
-	update: function(){
+	update: function(delta){
+		//making the creep move
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
 
+		this.body.update(delta);
+		//reaches to the constructor of Entity
+		this._super(me.Entity, "update", [delta]);
+	return true;
 	}
 })
 //puts the enemy on  a timer
