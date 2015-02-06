@@ -26,6 +26,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.now = new Date().getTime();
 		this.lastHit = this.now;
 		this.lastAttack = new Date().getTime();
+		//the camera follows the player
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH)
 		//adding the pictures of the characters
 		this.renderable.addAnimation("idle" , [78]);
@@ -148,8 +149,10 @@ game.EnemyBaseEntity = me.Entity.extend({
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 		this.type = "EnemyBaseEntity";
+		//adding the pictures of the tower
 		this.renderable.addAnimation("idle" , [0]);
 		this.renderable.addAnimation("broken" , [1]);
+		//setting the picture
 		this.renderable.setCurrentAnimation("idle");
 	},
 
@@ -157,6 +160,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 		//the tower when it has no hits yet , (health is at 0 )
 		if (this.health<=0) {
 			this.broken = true;
+			//sets the picture of the tower on fire when health is at 0
 			this.renderable.setCurrentAnimation("broken");
 		}
 		this.body.update(delta);
@@ -189,9 +193,10 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 		this.type = "PlayerBaseEntity";
-
+		//adding pictures of the second tower
 		this.renderable.addAnimation("idle" , [0]);
 		this.renderable.addAnimation("broken" , [1]);
+		//setting the picture of the second tower
 		this.renderable.setCurrentAnimation("idle");
 	},
 
