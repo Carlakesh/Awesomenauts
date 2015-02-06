@@ -94,7 +94,7 @@ if(me.input.isKeyPressed("attack")){
 	me.collision.check(this, true, this.collideHandler.bind(this), true);
 		//updating the game
 		this.body.update(delta);
-
+		//reaches to the constructor of Entity
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	},
@@ -130,16 +130,19 @@ this.body.vel.y = -1;
 game.EnemyBaseEntity = me.Entity.extend({
 	init: function(x , y, settings) {
 		this._super(me.Entity, 'init', [x, y, {
+
+			//adding the tower image , and setting its size
 			image: "tower",
 			width: 100,
 			height: 100,
 			spritewidth: "100",
 			spriteheight: "100",
 			getShape: function() {
+				//setting the rectangle thats for the tower
 				return (new me.Rect(0, 0, 100, 80)).toPolygon();
 			}
 		}]);
-
+		//the health of the power .. if you hit it more than 10 times , then it will blow up
 		this.broken = false;
 		this.health = 10;
 		this.alwaysUpdate = true;
@@ -151,6 +154,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 	},
 
 	update:function(delta){
+		//the tower when it has no hits yet , (health is at 0 )
 		if (this.health<=0) {
 			this.broken = true;
 			this.renderable.setCurrentAnimation("broken");
@@ -166,17 +170,20 @@ game.EnemyBaseEntity = me.Entity.extend({
 
 game.PlayerBaseEntity = me.Entity.extend({
 	init: function(x , y, settings) {
+		// the constructor of Entity
 		this._super(me.Entity, 'init', [x, y, {
+			//choosing the second tower and setting its size
 			image: "tower",
 			width: 100,
 			height: 100,
 			spritewidth: "100",
 			spriteheight: "100",
 			getShape: function() {
+				//setting the rectangle that the tower is in
 				return (new me.Rect(0, 0, 100, 80)).toPolygon();
 			}
 		}]);
-
+		//the health of the tower
 		this.broken = false;
 		this.health = 10;
 		this.alwaysUpdate = true;
@@ -189,6 +196,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 	},
 
 	update:function(delta){
+		//towers health at 0 
 		if (this.health<=0) {
 			this.broken = true;
 			this.renderable.setCurrentAnimation("broken");
