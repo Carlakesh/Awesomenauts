@@ -27,6 +27,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.lastHit = this.now;
 		this.lastAttack = new Date().getTime();
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH)
+		//adding the pictures of the characters
 		this.renderable.addAnimation("idle" , [78]);
 		this.renderable.addAnimation("walk", [117, 118 , 119 , 120 , 121 , 122 , 123 , 124 , 125], 80);
 		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
@@ -42,6 +43,7 @@ game.PlayerEntity = me.Entity.extend({
 			//me.timer.tick makes the movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
 
+			//flipping the character
 			this.facing = "right";
 			this.flipX(true);
 
@@ -78,10 +80,12 @@ if(me.input.isKeyPressed("attack")){
 
 
 		else if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){
+			//sets the animation of walking
 			if(!this.renderable.isCurrentAnimation("walk")){
 				this.renderable.setCurrentAnimation("walk");
 			}
 		}else if (!this.renderable.isCurrentAnimation("attack")){ 
+			//when no keys are pressed the character sets to idle
 			this.renderable.setCurrentAnimation("idle");
 		}
 
