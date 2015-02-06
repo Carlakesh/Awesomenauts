@@ -221,23 +221,28 @@ game.PlayerBaseEntity = me.Entity.extend({
 	}
 });
 
-game.EnemyCreep = me.Entity.extend({
+	game.EnemyCreep = me.Entity.extend({
 	init: function(x, y, settings){
+		//reaches to the constructor of Entity
 		this._super(me.Entity, 'init', [x, y, {
+			//chooses the enemy creep and set its size
 			image: "creep1",
 			width: 32,
 			height: 64,
 			spritewidth: "32",
 			spriteheight: "64",
 			getShape: function(){
+				//setting the rectangle the player can walk into
 				return (new me.Rect(0, 0, 32, 64)).toPolygon();
 			}
 		}]);
+		//giving the enemy a health 
 		this.health = 10;
 		this.alwaysUpdate = true;
 
 		this.body.setVelocity(3, 20);
 		this.type = "EnemyCreep";
+		//adding the animation and the pictures of the enemy
 		this.renderable.addAnimation("walk", [3, 4, 5], 80);
 		this.renderable.setCurrentAnimation("walk");
 	},

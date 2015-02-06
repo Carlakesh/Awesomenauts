@@ -42,7 +42,9 @@ var game = {
 		//registering the player 
 		me.pool.register("player", game.PlayerEntity, true);
 		me.pool.register("PlayerBase", game.PlayerBaseEntity);
+		//registering the enemy base
 		me.pool.register("EnemyBase", game.EnemyBaseEntity);
+		//registering the creep
 		me.pool.register("EnemyCreep", game.EnemyCreep, true);
 		me.pool.register("GameManager", game.GameManager);
 
