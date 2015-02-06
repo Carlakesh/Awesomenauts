@@ -56,6 +56,7 @@ game.PlayerEntity = me.Entity.extend({
 		}else{
 			this.body.vel.x = 0; 
 		}
+		//lets you jump except when you're already jumping or falling
 if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 this.jumping = true;
 this.body.vel.y -= this.body.accel.y * me.timer.tick;

@@ -16,8 +16,11 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		//when clicking right, character moves right
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
+		//when clicking left, character moves left
 		me.input.bindKey(me.input.KEY.LEFT, "left");
+		//when clicking space, character will jump
 		me.input.bindKey(me.input.KEY.SPACE, "jump");
+		//when clicking 'A' , character will attack
 		me.input.bindKey(me.input.KEY.A, "attack");
 		// add our HUD to the game world
 		this.HUD = new game.HUD.Container();
