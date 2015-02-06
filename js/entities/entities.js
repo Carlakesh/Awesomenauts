@@ -249,7 +249,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 	update: function(delta){
 		//making the creep move
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
-
+ 
 		this.body.update(delta);
 		//reaches to the constructor of Entity
 		this._super(me.Entity, "update", [delta]);
