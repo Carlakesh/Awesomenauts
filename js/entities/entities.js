@@ -92,7 +92,7 @@ if(me.input.isKeyPressed("attack")){
 		}
 
 
-
+		//checks the collision 
 	me.collision.check(this, true, this.collideHandler.bind(this), true);
 		//updating the game
 		this.body.update(delta);
@@ -100,7 +100,7 @@ if(me.input.isKeyPressed("attack")){
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	},
-
+			//sets collision between tower and player it helps so the player wont go through the tower
 		collideHandler: function(response) {
 		if(response.b.type==='EnemyBaseEntity') {
 			var ydif = this.pos.y - response.b.pos.y;
