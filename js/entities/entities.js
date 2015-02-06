@@ -107,15 +107,17 @@ if(me.input.isKeyPressed("attack")){
 			var xdif = this.pos.x - response.b.pos.x;
 			
 		
-
+//helps the player step on the correct level of the floor .
 if (ydif<-40 && xdif< 70 && xdif>-35){
 this.body.falling = false;
 this.body.vel.y = -1;
 }
 
+		//stops player from going through from the right
 			else if(xdif>-35 && this.facing==='right' && (xdif<0 && ydif>-0)) {
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x -1;
+				//stops player from going through from the left
 			}else if(xdif<70 && this.facing==='left' && xdif>0) {
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x +1;
