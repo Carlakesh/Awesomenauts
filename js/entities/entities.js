@@ -3,7 +3,7 @@ game.PlayerEntity = me.Entity.extend({
 	//setting function
 	init: function(x, y, settings) {
 		//extending the function
-		this._super(me.Entity, 'init', [x, y, {
+		this._super(me.Entity, 'init', [x, y, { 
 			//setting the player image and its width and height
 			image: "player", 
 			width: 64,
@@ -60,6 +60,7 @@ game.PlayerEntity = me.Entity.extend({
 if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 this.jumping = true;
 this.body.vel.y -= this.body.accel.y * me.timer.tick;
+me.audio.play("jump");
 }
 	
 
@@ -269,7 +270,7 @@ this.now = new Date().getTime();
 if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
 	this.lastCreep = this.now;
 	var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
-	me.game.world.addChild(Creepe, 5);
+	me.game.world.addChild(creepe, 5);
 	}
 	return true;
 }
