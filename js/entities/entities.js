@@ -171,6 +171,10 @@ game.EnemyBaseEntity = me.Entity.extend({
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	},
+	loseHealth: function(damage){
+		this.health = this.health - damage;
+	},
+
 	onCollision: function(){
 		
 	}
@@ -196,7 +200,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.health = 10;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
-		this.type = "PlayerBaseEntity";
+		this.type = "PlayerBase";
 		//adding pictures of the second tower
 		this.renderable.addAnimation("idle" , [0]);
 		this.renderable.addAnimation("broken" , [1]);
@@ -239,8 +243,14 @@ game.PlayerBaseEntity = me.Entity.extend({
 		}]);
 		//giving the enemy a health 
 		this.health = 10;
+		this.now = new Date().getTime();
 		this.alwaysUpdate = true;
-
+		//this.attacking lets us know if the enemy  is currently attacking
+		this.attacking = false;
+		//keeps track of when our creep last attacked anything
+		this.lastAttacking = new Date().getTime();
+		//keeps track of the last time our creep hit anything
+		this.lastHit = new Date().getTime();
 		this.body.setVelocity(3, 20);
 		this.type = "EnemyCreep";
 		//adding the animation and the pictures of the enemy
@@ -248,15 +258,35 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.renderable.setCurrentAnimation("walk");
 	},
 	update: function(delta){
+		this.now = new Date().getTime();
 		//making the creep move
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
  
 		this.body.update(delta);
 		//reaches to the constructor of Entity
 		this._super(me.Entity, "update", [delta]);
 	return true;
+	},
+	collideHandler: function(response){
+		if (response.b.type==='PlayerBase') {
+			this.attacking=true;
+			
+			this.body.vel.x= 0;
+			
+			this.pos.x = this.pos.x + 1;
+			
+			if ((this.now-this.lastHit >= 1000 )){
+				
+				this.lastHit = this.now;
+
+				response.b.loseHealth(1);
+			}
+		}
 	}
-})
+});
+
+
 //puts the enemy on  a timer
 game.GameManager = Object.extend({
 init: function(x, y, settings){
