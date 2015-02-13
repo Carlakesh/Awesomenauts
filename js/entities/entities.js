@@ -19,7 +19,7 @@ game.PlayerEntity = me.Entity.extend({
 			}
 		}]);
 		this.type = "PlayerEntity";
-
+		//setting the player's health
 		this.health = 20;
 		//setting the velocity
 		this.body.setVelocity(5, 20);
