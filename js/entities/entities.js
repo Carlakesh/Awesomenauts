@@ -20,14 +20,15 @@ game.PlayerEntity = me.Entity.extend({
 		}]);
 		this.type = "PlayerEntity";
 		//setting the player's health
-		this.health = 20;
+		this.health = game.data.playerHealth;
 		//setting the velocity
-		this.body.setVelocity(5, 20);
+		this.body.setVelocity(game.data.playerMoveSpeed, 20);
 		//keeps track of which direction your character is going
 		this.facing = "right";
 
 		this.now = new Date().getTime();
 		this.lastHit = this.now;
+		this.dead = false;
 		this.lastAttack = new Date().getTime();
 		//the camera follows the player
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH)
@@ -40,6 +41,13 @@ game.PlayerEntity = me.Entity.extend({
 
 	update: function(delta){
 		this.now = new Date().getTime();
+
+		if(this.health <= 0){
+			this.dead = true;
+			this.pos.x = 10;
+			this.pos.y = 0;
+			this.health = game.data.playerHealth;
+		}
 		//checking if the right key is pressed
 		if (me.input.isKeyPressed("right")) {
 			//adds to  the position of my x by the velocity defined above in
@@ -132,10 +140,10 @@ this.body.vel.y = -1;
 				this.pos.x = this.pos.x +1;
 
 			}
-			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit>= 1000){
+			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit>= game.data.playerAttackTimer){
 				console.log("tower Hit");
 				this.lastHit = this.now;
-				response.b.loseHealth();
+				response.b.loseHealth(game.data.playerAttack);
 			}
 		}else if(response.b.type==='EnemyCreep'){
 			var xdif = this.pos.x - response.b.pos.x;
@@ -152,12 +160,12 @@ this.body.vel.y = -1;
 					this.body.vel.x = 0;
 				}
 			}
-			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit>= 1000
+			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit>= game.data.playerAttackTimer
 				&& (Math.abs(ydif) <=40) && 
 				(((xdif>0) && this.facing==="left") || ((xdif<0) && this.facing==="right"))
 				){
 				this.lastHit = this.now;
-				response.b.loseHealth(1);
+				response.b.loseHealth(game.data.playerAttack);
 			}
 		}
 		
@@ -181,7 +189,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 		}]);
 		//the health of the power .. if you hit it more than 10 times , then it will blow up
 		this.broken = false;
-		this.health = 10;
+		this.health = game.data.enemyBaseHealth;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 		this.type = "EnemyBaseEntity";
@@ -229,7 +237,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 		}]);
 		//the health of the tower
 		this.broken = false;
-		this.health = 10;
+		this.health = game.data.playerBaseHealth;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 		this.type = "PlayerBase";
@@ -276,7 +284,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 		}]);
 
 		//giving the enemy a health 
-		this.health = 10;
+		this.health = game.data.enemyCreepHealth;
 		this.now = new Date().getTime();
 		this.alwaysUpdate = true;
 		//this.attacking lets us know if the enemy  is currently attacking
@@ -322,7 +330,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 				this.lastHit = this.now;
 				//makes the player base call its loseHealth function and passes it
 				//a damage of 1
-				response.b.loseHealth(1);
+				response.b.loseHealth(game.data.EnemyCreepAttack);
 			}
 		}else if (response.b.type=== 'PlayerEntity'){
 
@@ -343,7 +351,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 				this.lastHit = this.now;
 				//makes the player  call its loseHealth function and passes it
 				//a damage of 1
-				response.b.loseHealth(1);
+				response.b.loseHealth(game.data.EnemyCreepAttack);
 			}
 
 		}
