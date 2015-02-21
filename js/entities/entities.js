@@ -364,6 +364,7 @@ this.lastCreep = new Date().getTime();
 this.alwaysUpdate = true;
 },
 update: function(){
+	//keeps track of time
 this.now = new Date().getTime();
 if(game.data.player.dead){
 	me.game.world.removeChild(game.data.player);
