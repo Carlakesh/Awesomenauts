@@ -8,7 +8,7 @@ game.resources = [
 	  {name: "background-tiles", type:"image", src: "data/img/Background-tiles.png"},
 	  {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
 	  //added the characters pictures.
-	  {name: "player", type:"image", src: "data/img/orcSpear.png"},
+	  {name: "player", type:"image", src: "data/img/carla.png"},
 	  {name: "tower", type:"image", src: "data/img/tower_round.svg.png"},
 	  //adding the creep pictures
 	  {name: "creep1", type:"image", src: "data/img/brainmonster.png"},
