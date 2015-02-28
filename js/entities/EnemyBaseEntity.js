@@ -1,5 +1,16 @@
 game.EnemyBaseEntity = me.Entity.extend({
 	init: function(x , y, settings) {
+		this.setSuper(x, y);
+		this.setAttributes();
+		this.type = "EnemyBaseEntity";
+
+		this.addAnimation();
+		
+		//sets the first picture of the tower
+		this.renderable.setCurrentAnimation("idle");
+	},
+
+	setSuper: function(x, y) {
 		this._super(me.Entity, 'init', [x, y, {
 
 			//adding the tower image , and setting its size
@@ -27,6 +38,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 	},
 
 	update:function(delta){
+		this.dead = this.checkIfDestroyed();
 		//the tower when it has no hits yet , (health is at 0 )
 		if (this.health<=0) {
 			this.broken = true;

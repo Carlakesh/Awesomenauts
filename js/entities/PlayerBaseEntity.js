@@ -1,5 +1,15 @@
 game.PlayerBaseEntity = me.Entity.extend({
 	init: function(x , y, settings) {
+		this.setSuper(x, y);
+		this.setAttributes();
+		this.type = "PlayerBase";
+
+		this.addAnimation();
+		
+		/*sets the first picture of the tower*/
+		this.renderable.setCurrentAnimation("idle");
+	},
+	setSuper:function(x, y){
 		// the constructor of Entity
 		this._super(me.Entity, 'init', [x, y, {
 			//choosing the second tower and setting its size
@@ -13,6 +23,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 				return (new me.Rect(0, 0, 100, 80)).toPolygon();
 			}
 		}]);
+	},
 		//the health of the tower
 		this.broken = false;
 		this.health = game.data.playerBaseHealth;
@@ -27,6 +38,7 @@ game.PlayerBaseEntity = me.Entity.extend({
 	},
 
 	update:function(delta){
+		this.dead = this.checkIfDestroyed();
 		//towers health at 0 
 		if (this.health<=0) {
 			this.broken = true;

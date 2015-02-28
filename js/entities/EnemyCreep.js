@@ -1,5 +1,16 @@
 	game.EnemyCreep = me.Entity.extend({
 	init: function(x, y, settings){
+		this.setSuper(x, y);
+		this.setEnemyTimers();
+		this.setAttributes();
+		this.type = "EnemyCreep";
+		
+		this.addAnimation();
+		
+		this.renderable.setCurrentAnimation("walk");
+
+	},	
+	setSuper: function(x, y) {
 		//reaches to the constructor of Entity
 		this._super(me.Entity, 'init', [x, y, {
 			//chooses the enemy creep and set its size
@@ -14,6 +25,7 @@
 			}
 		}]);
 
+},
 		//giving the enemy a health 
 		this.health = game.data.enemyCreepHealth;
 		this.now = new Date().getTime();
@@ -38,6 +50,8 @@
 			me.game.world.removeChild(this);
 		}
 		this.now = new Date().getTime();
+
+		this.dead = this.checkIfDead();
 		//making the creep move
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
 		me.collision.check(this, true, this.collideHandler.bind(this), true);

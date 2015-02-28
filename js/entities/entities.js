@@ -2,10 +2,9 @@
 game.PlayerEntity = me.Entity.extend({
 	//setting function
 	init: function(x, y, settings) {
-		this.setSuper();
+		this.setSuper(x,y);
 		this.setPlayerTimers();
 		this.setAttributes();
-
 		this.type = "PlayerEntity";
 		this.setFlags();
 		
@@ -17,8 +16,20 @@ game.PlayerEntity = me.Entity.extend({
 	},
 
 
-	setSuper: function(){
-
+	setSuper: function(x,y){
+		//reaches to the constructor of Entity
+		this._super(me.Entity, 'init', [x, y, {
+			//chooses the player and setting its size .
+			image: "player",
+			width: 64,
+			height: 64,
+			spritewidth: "64",
+			spriteheight: "64",
+			getShape: function() {
+				//sets the rectangle the player can walk into
+				return(new me.Rect(0, 0, 64, 64)).toPolygon();
+			}
+		}]);
 	},
 
 	setPlayerTimers: function(){
@@ -64,6 +75,7 @@ me.audio.play("jump");
 
 		//checks the collision 
 	me.collision.check(this, true, this.collideHandler.bind(this), true);
+		this.dead = this.checkIfDestroyed();
 		//updating the game
 		this.body.update(delta);
 		//reaches to the constructor of Entity
