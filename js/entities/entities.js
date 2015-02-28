@@ -54,32 +54,10 @@ game.PlayerEntity = me.Entity.extend({
 	update: function(delta){
 		this.now = new Date().getTime();
 
-		if(this.health <= 0){
-			this.dead = true;
-		}
-		//checking if the right key is pressed
-		if (me.input.isKeyPressed("right")) {
-			//adds to  the position of my x by the velocity defined above in
-			//setVelocity() and multiplying it by me.timer.tick
-			//me.timer.tick makes the movement look smooth
-			this.body.vel.x += this.body.accel.x * me.timer.tick;
+		this.dead = checkIfDead();
 
-			//flipping the character
-			this.facing = "right";
-			this.flipX(true);
-
-			//if other key is pressed it wont work
-		}else if (me.input.isKeyPressed("left")){
-			this.facing = "left";
-			this.body.vel.x -=this.body.accel.x * me.timer.tick;
-			this.flipX(false);
-		}else{
-			this.body.vel.x = 0; 
-		}
-		//lets you jump except when you're already jumping or falling
-if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
-this.jumping = true;
-this.body.vel.y -= this.body.accel.y * me.timer.tick;
+		this.checkKeyPressesAndMove();
+		
 me.audio.play("jump");
 }
 	
@@ -121,6 +99,51 @@ if(me.input.isKeyPressed("attack")){
 		return true;
 	},
 
+	checkIfDead: function(){
+		if(this.health <= 0){
+			return true;
+		}
+		return false;
+	},
+
+	checkKeyPressesAndMove: function(){
+		//checking if the right key is pressed
+		if (me.input.isKeyPressed("right")) {
+			this.moveRight();
+
+			//if other key is pressed it wont work
+		}else if (me.input.isKeyPressed("left")){
+			this.moveLeft();
+		}else{
+			this.body.vel.x = 0; 
+		}
+		//lets you jump except when you're already jumping or falling
+if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
+	this.jump();
+	},
+
+	moveRight: function(){
+
+			//adds to  the position of my x by the velocity defined above in
+			//setVelocity() and multiplying it by me.timer.tick
+			//me.timer.tick makes the movement look smooth
+			this.body.vel.x += this.body.accel.x * me.timer.tick;
+
+			//flipping the character
+			this.facing = "right";
+			this.flipX(true);
+		},
+
+		moveLeft: function(){
+			this.facing = "left";
+			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			this.flipX(false);
+		}
+
+		jump: function(){
+			this.jumping = true;
+		this.body.vel.y -= this.body.accel.y * me.timer.tick;
+		},
 	loseHealth: function(damage){
 		this.health = this.health - damage;
 	
