@@ -10,8 +10,11 @@ game.PlayScreen = me.ScreenObject.extend({
 		
 		this.resetPlayer(0, 420);
 		//adds the gamemanager to the game
-		var gamemanager = me.pool.pull("gamemanager", 0 , 0, {});
-		me.game.world.addChild(gamemanager, 0);
+		var gameTimerManager = me.pool.pull("GameTimerManager", 0 , 0, {});
+		me.game.world.addChild(gameTimerManager, 0);
+
+		var HeroDeathManager = me.pool.pull("HeroDeathManager", 0 , 0, {});
+		me.game.world.addChild(HeroDeathManager, 0);
 
 		//when clicking right, character moves right
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
