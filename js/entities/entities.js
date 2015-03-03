@@ -69,7 +69,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.checkKeyPressesAndMove();
 		
 me.audio.play("jump");
-}
+
 	
 	this.setAnimation();
 
@@ -124,7 +124,7 @@ if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 			this.facing = "left";
 			this.body.vel.x -=this.body.accel.x * me.timer.tick;
 			this.flipX(false);
-		}
+		},
 
 		jump: function(){
 			this.jumping = true;
@@ -157,7 +157,7 @@ if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 
 	loseHealth: function(damage){
 		this.health = this.health - damage;
-	
+	},
 			//sets collision between tower and player it helps so the player wont go through the tower
 		collideHandler: function(response) {
 		if(response.b.type==='EnemyBaseEntity') {
