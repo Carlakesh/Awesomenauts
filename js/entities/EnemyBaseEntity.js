@@ -42,6 +42,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 		//the tower when it has no hits yet , (health is at 0 )
 		if (this.health<=0) {
 			this.broken = true;
+			game.data.win = true;
 			//sets the picture of the tower on fire when health is at 0
 			this.renderable.setCurrentAnimation("broken");
 		}
