@@ -1,4 +1,4 @@
-
+Game.js
 /* Game namespace */
 var game = {
 
