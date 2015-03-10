@@ -38,7 +38,7 @@ game.TitleScreen = me.ScreenObject.extend({
 			},
 
 			draw: function(renderer) {
-				this.font.draw(renderer.getContext (), "COUNTINUE", this.pos.x, this.pos.y);
+				this.font.draw(renderer.getContext (), "CONTINUE", this.pos.x, this.pos.y);
 				},
 					update: function(dt){
 						return true;

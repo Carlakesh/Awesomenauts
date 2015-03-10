@@ -24,10 +24,8 @@
 				return (new me.Rect(0, 0, 32, 64)).toPolygon();
 			}
 		}]);
-
-},
 		//giving the enemy a health 
-		this.health = game.data.enemyCreepHealth;
+		this.health = game.data.EnemyCreepHealth;
 		this.now = new Date().getTime();
 		this.alwaysUpdate = true;
 		//this.attacking lets us know if the enemy  is currently attacking

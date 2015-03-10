@@ -23,7 +23,6 @@ game.PlayerBaseEntity = me.Entity.extend({
 				return (new me.Rect(0, 0, 100, 80)).toPolygon();
 			}
 		}]);
-	},
 		//the health of the tower
 		this.broken = false;
 		this.health = game.data.playerBaseHealth;
