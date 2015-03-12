@@ -1,28 +1,17 @@
 game.PlayerBaseEntity = me.Entity.extend({
-	init: function(x , y, settings) {
-		this.setSuper(x, y);
-		this.setAttributes();
-		this.type = "PlayerBase";
-
-		this.addAnimation();
-		
-		/*sets the first picture of the tower*/
-		this.renderable.setCurrentAnimation("idle");
-	},
-	setSuper:function(x, y){
-		// the constructor of Entity
-		this._super(me.Entity, 'init', [x, y, {
-			//choosing the second tower and setting its size
+	init : function(x, y, settings) {
+		this._super(me.Entity, 'init', [x, x, {
 			image: "tower",
 			width: 100,
 			height: 100,
 			spritewidth: "100",
 			spriteheight: "100",
-			getShape: function() {
-				//setting the rectangle that the tower is in
-				return (new me.Rect(0, 0, 100, 80)).toPolygon();
+			getShape: function(){
+				return (new me.Rect(0, 0, 100, 100)).toPolygon();
 			}
 		}]);
+
+	
 		//the health of the tower
 		this.broken = false;
 		this.health = game.data.playerBaseHealth;
@@ -37,7 +26,6 @@ game.PlayerBaseEntity = me.Entity.extend({
 	},
 
 	update:function(delta){
-		this.dead = this.checkIfDestroyed();
 		//towers health at 0 
 		if (this.health<=0) {
 			this.broken = true;
@@ -47,11 +35,17 @@ game.PlayerBaseEntity = me.Entity.extend({
 		this.body.update(delta);
 		this._super(me.Entity, "update", [delta]);
 		return true;
-	},
-	onCollision: function(){
+	}, 
 
+	loseHealth: function(damage){
+		this.health = this.health - damage;
 	},
-	loseHealth: function(){
-		this.health--;
+
+	onCollision: function() {
+
 	}
+
 });
+
+
+	

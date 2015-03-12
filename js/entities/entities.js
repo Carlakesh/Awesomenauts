@@ -65,7 +65,7 @@ game.PlayerEntity = me.Entity.extend({
 
 	update: function(delta){
 		this.now = new Date().getTime();
-		this.dead = checkIfDead();
+		this.dead = this.checkIfDead();
 		this.checkKeyPressesAndMove();
 		
 me.audio.play("jump");
@@ -75,7 +75,7 @@ me.audio.play("jump");
 
 		//checks the collision 
 	me.collision.check(this, true, this.collideHandler.bind(this), true);
-		this.dead = this.checkIfDestroyed();
+
 		//updating the game
 		this.body.update(delta);
 		//reaches to the constructor of Entity
