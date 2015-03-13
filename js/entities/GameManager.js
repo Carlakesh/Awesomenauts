@@ -4,7 +4,7 @@ init: function(x, y, settings){
 this.now = new Date().getTime();
 this.lastCreep = new Date().getTime();
 this.paused = false;
-
+this.alwaysUpdate = true;
 },
 update: function(){
 	//keeps track of time
@@ -73,5 +73,17 @@ game.ExperienceManager = Object.extend({
 			game.gameover = true;
 			me.save.exp = game.data.exp;
 			
+	}
+});
+
+	game.SpendGold = Object.extend({
+	init: function(x, y, settings){
+	this.now = new Date().getTime();
+	this.lastBuy = new Date().getTime();
+	this.paused = false;
+	this.alwaysUpdate = true;
+},
+	update: function(){
+		return true;
 	}
 });
