@@ -32,11 +32,8 @@ class Database {
         if (!$exists) {
             //sends comands to data base
             $query = $this->connection->query("CREATE DATABASE $database");
-            //checking if query is created successfully . 
-            if ($query) {
-                //checking if data base is created
-                echo "<p>successfully created a database: " . $database . "</p>";
-            }
+           
+            
         }
         //else statement 
         // if database exists
