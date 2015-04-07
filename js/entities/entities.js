@@ -141,9 +141,9 @@ if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 	},
 
 	shootIArrow: function() {
-		if(this.lastIArrow >= game.data.iArrowTimer && game.data.ability3 >= 0){
+		if((this.now-this.lastIArrow) >= game.data.iArrowTimer*1000 && game.data.ability3 > 0){
 			this.lastIArrow = this.now;
-			var iArrow = me.pool.pull("iArrow", this.pos.x, this.pos.y, {});
+			var iArrow = me.pool.pull("iArrow", this.pos.x, this.pos.y, {}, this.facing);
 			me.game.world.addChild(iArrow, 10);
 		}
 	},
