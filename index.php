@@ -99,7 +99,7 @@
 		$("#register").bind("click", function() {
 			$.ajax({
 				type: "POST",
-				url: "php/controller/create-users.php",
+				url: "php/controller/create-user.php",
 				data: {
 					username: $('#username').val(),
 					password: $('#password').val()
@@ -120,7 +120,7 @@
 $("#load").bind("click", function() {
 			$.ajax({
 				type: "POST",
-				url: "php/controller/login-users.php",
+				url: "php/controller/login-user.php",
 				data: {
 					username: $('#username').val(),
 					password: $('#password').val()
