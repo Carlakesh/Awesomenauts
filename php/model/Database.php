@@ -35,11 +35,7 @@ class Database {
            
             
         }
-        //else statement 
-        // if database exists
-        else {
-            echo "<p>datebase already exists</p>";
-        }
+       
     }
 
 //openning a connection
