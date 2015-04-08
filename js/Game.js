@@ -39,7 +39,8 @@ var game = {
 		pausePos: "",
 		buyscreen: "",
 		buytext: "",
-		miniMap: ""
+		miniMap: "",
+		miniPlayer: ""
 	},
 	
 	// Run on page load.
