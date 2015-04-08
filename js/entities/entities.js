@@ -11,11 +11,8 @@ game.PlayerEntity = me.Entity.extend({
 		//the camera follows the player
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH)
 		this.addAnimation();
-
 		this.renderable.setCurrentAnimation("idle");
 	},
-
-
 	setSuper: function(x,y){
 		//reaches to the constructor of Entity
 		this._super(me.Entity, 'init', [x, y, {
@@ -88,7 +85,6 @@ game.PlayerEntity = me.Entity.extend({
 		}
 		return false;
 	},
-
 	checkKeyPressesAndMove: function(){
 		//checking if the right key is pressed
 		if (me.input.isKeyPressed("right")) {
@@ -139,7 +135,6 @@ if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 			this.shootIArrow();
 		}
 	},
-
 	shootIArrow: function() {
 		if((this.now-this.lastIArrow) >= game.data.iArrowTimer*1000 && game.data.ability3 > 0){
 			this.lastIArrow = this.now;
@@ -147,10 +142,8 @@ if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 			me.game.world.addChild(iArrow, 10);
 		}
 	},
-
 		setAnimation: function(){
 			if(this.attacking){
-		
 	if(!this.renderable.isCurrentAnimation("attack")){
 		//sets the current animation to attack and once that is over
 	//goes back to the idle animation
@@ -171,8 +164,7 @@ if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 			this.renderable.setCurrentAnimation("idle");
 		}
 			},
-
-	loseHealth: function(damage){
+loseHealth: function(damage){
 		this.health = this.health - damage;
 	},
 			//sets collision between tower and player it helps so the player wont go through the tower
@@ -180,15 +172,12 @@ if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
 		if(response.b.type==='EnemyBaseEntity') {
 			var ydif = this.pos.y - response.b.pos.y;
 			var xdif = this.pos.x - response.b.pos.x;
-			
-		
 //helps the player step on the correct level of the floor .
-if (ydif<-40 && xdif< 70 && xdif>-35){
-this.body.falling = false;
-this.body.vel.y = -1;
+	if (ydif<-40 && xdif< 70 && xdif>-35){
+	this.body.falling = false;
+	this.body.vel.y = -1;
 }
-
-		//stops player from going through from the right
+//stops player from going through from the right
 			else if(xdif>-35 && this.facing==='right' && (xdif<0 && ydif>-0)) {
 				this.body.vel.x = 0;
 				//this.pos.x = this.pos.x -1;
@@ -196,8 +185,7 @@ this.body.vel.y = -1;
 			}else if(xdif<70 && this.facing==='left' && xdif>0) {
 				this.body.vel.x = 0;
 				//this.pos.x = this.pos.x +1;
-
-			}
+	}
 			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit>= game.data.playerAttackTimer){
 		
 				this.lastHit = this.now;
@@ -228,16 +216,9 @@ this.body.vel.y = -1;
 					//adds one gold for a creep kill
 					game.data.gold += 1;
 					console.log("Current gold: " + game.data.gold);
-
 				}
 				response.b.loseHealth(game.data.playerAttack);
 			}
 		}
-		
 	}
 });
-
-
-
-
-

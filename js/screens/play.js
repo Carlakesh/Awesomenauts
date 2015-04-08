@@ -22,7 +22,8 @@ game.PlayScreen = me.ScreenObject.extend({
 		var SpendGold = me.pool.pull("SpendGold", 0 , 0, {});
 		me.game.world.addChild(SpendGold, 0);
 
-
+		game.data.minimap = me.pool.pull("minimap", 10, 10, {});
+		me.game.world.addChild(game.data.minimap, 30);
 		me.input.bindKey(me.input.KEY.S, "buy");
 		me.input.bindKey(me.input.KEY.Q, "skill");
 		me.input.bindKey(me.input.KEY.W, "skill2");
